@@ -73,9 +73,9 @@ class VideoRecorder():
 					# Uncomment the following three lines to make the video to be
 					# displayed to screen while recording
 					
-#					gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
-#					cv2.imshow('video_frame', gray)
-#					cv2.waitKey(1)
+					gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
+					cv2.imshow('video_frame', gray)
+					cv2.waitKey(1)
 			else:
 				break
 							
@@ -209,9 +209,9 @@ def stop_AVrecording(filename):
 	frame_counts = video_thread.frame_counts
 	elapsed_time = time.time() - video_thread.start_time
 	recorded_fps = frame_counts / elapsed_time
-	print "total frames " + str(frame_counts)
-	print "elapsed time " + str(elapsed_time)
-	print "recorded fps " + str(recorded_fps)
+	print("total frames " + str(frame_counts))
+	print("elapsed time " + str(elapsed_time))
+	print("recorded fps " + str(recorded_fps))
 	video_thread.stop() 
 
 	# Makes sure the threads have finished
@@ -223,21 +223,21 @@ def stop_AVrecording(filename):
 	
 	if abs(recorded_fps - 6) >= 0.01:    # If the fps rate was higher/lower than expected, re-encode it to the expected
 										
-		print "Re-encoding"
+		print("Re-encoding")
 		cmd = "ffmpeg -r " + str(recorded_fps) + " -i temp_video.avi -pix_fmt yuv420p -r 6 temp_video2.avi"
 		subprocess.call(cmd, shell=True)
 	
-		print "Muxing"
+		print("Muxing")
 		cmd = "ffmpeg -ac 2 -channel_layout stereo -i temp_audio.wav -i temp_video2.avi -pix_fmt yuv420p " + filename + ".avi"
 		subprocess.call(cmd, shell=True)
 	
 	else:
 		
-		print "Normal recording\nMuxing"
+		print("Normal recording\nMuxing")
 		cmd = "ffmpeg -ac 2 -channel_layout stereo -i temp_audio.wav -i temp_video.avi -pix_fmt yuv420p " + filename + ".avi"
 		subprocess.call(cmd, shell=True)
 
-		print ".."
+		print("..")
 
 
 
@@ -272,7 +272,7 @@ if __name__== "__main__":
 	time.sleep(10)
 	
 	stop_AVrecording(filename)
-	print "Done"
+	print("Done")
 
 
 
